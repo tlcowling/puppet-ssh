@@ -1,4 +1,6 @@
-# ssh
+# ssh ![Documentation](https://img.shields.io/badge/docs-green.svg)](https://tlcowling.github.io/puppet-ssh/)
+
+https://tlcowling.github.io/puppet-ssh/
 
 1. [Description](#description)
 2. [Setup - The basics of getting started with ssh](#setup)
