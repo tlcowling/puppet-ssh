@@ -1,0 +1,63 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+
+<%- if @port.length > 0 -%>
+<%- @port.each {|p| -%>
+Port <%= p %>
+<%- } -%>
+<%- end -%>
+<%- if @protocol -%>
+Protocol <%= @protocol -%>
+<%- end %>
+<%- if @address_family -%>
+AddressFamily <%= @address_family -%>
+<%- end %>
+<%- if @listen_addresses.length > 0 -%>
+<%- @listen_addresses.each {|listen_address| -%>
+ListenAddress <%= listen_address %>
+<%- } -%>
+<%- end %>
+<%- if @host_keys.length > 0 -%>
+<%- @host_keys.each {|host_key| -%>
+HostKey <%= host_key %>
+<%- } -%>
+<%- end %>
+<%- if @key_regeneration_interval -%>
+KeyRegenerationInterval <%= key_regeneration_interval %>
+<%- end -%>
+<%- if @use_dns -%>
+UseDNS <%= @use_dns -%>
+<%- end %>
+<%- if @use_pam -%>
+UsePAM <%= @use_pam -%>
+<%- end %>
+<%- if @print_motd -%>
+PrintMotd <%= @print_motd -%>
+<%- end %>
+<%- if @allow_agent_forwarding -%>
+AllowAgentForwarding <%= @allow_agent_forwarding -%>
+<%- end %>
+<%- if @allow_tcp_forwarding -%>
+AllowTcpForwarding <%= @allow_tcp_forwarding -%>
+<%- end %>
+<%- if @chroot_directory -%>
+ChrootDirectory <%= @chroot_directory -%>
+<%- end %>
+<%- if @challenge_response_authentication -%>
+ChallengeResponseAuthentication <%= @challenge_response_authentication -%>
+<%- end %>
+<%- if @compression -%>
+Compression <%= @compression -%>
+<%- end %>
+Ciphers <%= @ciphers.join(",") %>
+KexAlgorithms <%= @kex_algorithms.join(",") %>
+Macs <%= @macs.join(",") %>
+<%- if @disable_forwarding -%>
+DisableForwarding <%= @disable_forwarding -%>
+<%- end %>
+<%- if @gssapi_authentication -%>
+GSSAPIAuthentication <%= @gssapi_authentication -%>
+<%- end %>
+<%- if @log_level -%>
+LogLevel <%= @log_level -%>
+<%- end %>
