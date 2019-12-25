@@ -5,38 +5,38 @@
 #     allow_agent_forwarding = false,
 #   }
 #
-# @param AcceptEnv
+# @param accept_env
 #              Specifies what environment variables sent by the client will be copied into the session's environ(7).  See SendEnv in ssh_config(5) for how to configure the
 #              client.  The TERM environment variable is always sent whenever the client requests a pseudo-terminal as it is required by the protocol.  Variables are specified
 #              by name, which may contain the wildcard characters ‘*’ and ‘?’.  Multiple environment variables may be separated by whitespace or spread across multiple
 #              AcceptEnv directives.  Be warned that some environment variables could be used to bypass restricted user environments.  For this reason, care should be taken in
-#              the use of this directive.  The default is not to accept any environment variables.
+#              the use of this directive.
 #
-# @param AddressFamily
+# @param address_family
 #              Specifies which address family should be used by sshd(8).  Valid arguments are any (the default), inet (use IPv4 only), or inet6 (use IPv6 only).
 #
-# @param AllowAgentForwarding
+# @param allow_agent_forwarding
 #              Specifies whether ssh-agent(1) forwarding is permitted.  The default is yes.  Note that disabling agent forwarding does not improve security unless users are
 #              also denied shell access, as they can always install their own forwarders.
 #
-# @param AllowGroups
+# @param allow_groups
 #              This keyword can be followed by a list of group name patterns, separated by spaces.  If specified, login is allowed only for users whose primary group or sup‐
 #              plementary group list matches one of the patterns.  Only group names are valid; a numerical group ID is not recognized.  By default, login is allowed for all
 #              groups.  The allow/deny directives are processed in the following order: DenyUsers, AllowUsers, DenyGroups, and finally AllowGroups.
 #
 #              See PATTERNS in ssh_config(5) for more information on patterns.
 #
-# @param AllowStreamLocalForwarding
+# @param allow_stream_local_forwarding
 #              Specifies whether StreamLocal (Unix-domain socket) forwarding is permitted.  The available options are yes (the default) or all to allow StreamLocal forwarding,
 #              no to prevent all StreamLocal forwarding, local to allow local (from the perspective of ssh(1)) forwarding only or remote to allow remote forwarding only.  Note
 #              that disabling StreamLocal forwarding does not improve security unless users are also denied shell access, as they can always install their own forwarders.
 #
-# @param AllowTcpForwarding
+# @param allow_tcp_forwarding
 #              Specifies whether TCP forwarding is permitted.  The available options are yes (the default) or all to allow TCP forwarding, no to prevent all TCP forwarding,
 #              local to allow local (from the perspective of ssh(1)) forwarding only or remote to allow remote forwarding only.  Note that disabling TCP forwarding does not
 #              improve security unless users are also denied shell access, as they can always install their own forwarders.
 #
-# @param AllowUsers
+# @param allow_users
 #              This keyword can be followed by a list of user name patterns, separated by spaces.  If specified, login is allowed only for user names that match one of the
 #              patterns.  Only user names are valid; a numerical user ID is not recognized.  By default, login is allowed for all users.  If the pattern takes the form
 #              USER@HOST then USER and HOST are separately checked, restricting logins to particular users from particular hosts.  HOST criteria may additionally contain
@@ -111,10 +111,10 @@
 #              Note that AuthorizedPrincipalsFile is only used when authentication proceeds using a CA listed in TrustedUserCAKeys and is not consulted for certification
 #              authorities trusted via ~/.ssh/authorized_keys, though the principals= key option offers a similar facility (see sshd(8) for details).
 #
-#      Banner  The contents of the specified file are sent to the remote user before authentication is allowed.  If the argument is none then no banner is displayed.  By
+#      @param banner  The contents of the specified file are sent to the remote user before authentication is allowed.  If the argument is none then no banner is displayed.  By
 #              default, no banner is displayed.
 #
-#      ChallengeResponseAuthentication
+#      @param challenge_response_authentication
 #              Specifies whether challenge-response authentication is allowed (e.g. via PAM).  The default is yes.
 #
 #      @param chroot_directory
@@ -132,33 +132,14 @@
 #
 #              The default is none, indicating not to chroot(2).
 #
-#      Ciphers
+#      @param ciphers
 #              Specifies the ciphers allowed.  Multiple ciphers must be comma-separated.  If the specified value begins with a ‘+’ character, then the specified ciphers will
 #              be appended to the default set instead of replacing them.  If the specified value begins with a ‘-’ character, then the specified ciphers (including wildcards)
 #              will be removed from the default set instead of replacing them.
 #
-#              The supported ciphers are:
-#
-#                    3des-cbc
-#                    aes128-cbc
-#                    aes192-cbc
-#                    aes256-cbc
-#                    aes128-ctr
-#                    aes192-ctr
-#                    aes256-ctr
-#                    aes128-gcm@openssh.com
-#                    aes256-gcm@openssh.com
-#                    chacha20-poly1305@openssh.com
-#
-#              The default is:
-#
-#                    chacha20-poly1305@openssh.com,
-#                    aes128-ctr,aes192-ctr,aes256-ctr,
-#                    aes128-gcm@openssh.com,aes256-gcm@openssh.com
-#
 #              The list of available ciphers may also be obtained using "ssh -Q cipher".
 #
-#      ClientAliveCountMax
+#      @param client_alive_count_max
 #              Sets the number of client alive messages which may be sent without sshd(8) receiving any messages back from the client.  If this threshold is reached while
 #              client alive messages are being sent, sshd will disconnect the client, terminating the session.  It is important to note that the use of client alive messages
 #              is very different from TCPKeepAlive.  The client alive messages are sent through the encrypted channel and therefore will not be spoofable.  The TCP keepalive
@@ -168,15 +149,15 @@
 #              The default value is 3.  If ClientAliveInterval is set to 15, and ClientAliveCountMax is left at the default, unresponsive SSH clients will be disconnected
 #              after approximately 45 seconds.
 #
-#      ClientAliveInterval
+#      @param client_alive_count_interval
 #              Sets a timeout interval in seconds after which if no data has been received from the client, sshd(8) will send a message through the encrypted channel to
 #              request a response from the client.  The default is 0, indicating that these messages will not be sent to the client.
 #
-#      Compression
+#      @param compression
 #              Specifies whether compression is enabled after the user has authenticated successfully.  The argument must be yes, delayed (a legacy synonym for yes) or no.
 #              The default is yes.
 #
-#      DebianBanner
+#      @param debian_banner
 #              Specifies whether the distribution-specified extra version suffix is included during initial protocol handshake.  The default is yes.
 #
 #      DenyGroups
@@ -194,7 +175,7 @@
 #
 #              See PATTERNS in ssh_config(5) for more information on patterns.
 #
-#      DisableForwarding
+#      @param disable_forwarding
 #              Disables all forwarding features, including X11, ssh-agent(1), TCP and StreamLocal.  This option overrides all other forwarding-related options and may simplify
 #              restricted configurations.
 #
@@ -420,14 +401,14 @@
 #              PermitRootLogin, PermitTTY, PermitTunnel, PermitUserRC, PubkeyAcceptedKeyTypes, PubkeyAuthentication, RekeyLimit, RevokedKeys, StreamLocalBindMask,
 #              StreamLocalBindUnlink, TrustedUserCAKeys, X11DisplayOffset, X11Forwarding and X11UseLocalHost.
 #
-#      MaxAuthTries
+#      @param max_auth_tries
 #              Specifies the maximum number of authentication attempts permitted per connection.  Once the number of failures reaches half this value, additional failures are
-#              logged.  The default is 6.
+#              logged.
 #
-#      MaxSessions
+#      @param max_sessions
 #              Specifies the maximum number of open shell, login or subsystem (e.g. sftp) sessions permitted per network connection.  Multiple sessions may be established by
 #              clients that support connection multiplexing.  Setting MaxSessions to 1 will effectively disable session multiplexing, whereas setting it to 0 will prevent all
-#              shell, login and subsystem sessions while still permitting forwarding.  The default is 10.
+#              shell, login and subsystem sessions while still permitting forwarding.
 #
 #      MaxStartups
 #              Specifies the maximum number of concurrent unauthenticated connections to the SSH daemon.  Additional connections will be dropped until authentication succeeds
@@ -558,7 +539,7 @@
 #              Gives the facility code that is used when logging messages from sshd(8).  The possible values are: DAEMON, USER, AUTH, LOCAL0, LOCAL1, LOCAL2, LOCAL3, LOCAL4,
 #              LOCAL5, LOCAL6, LOCAL7.  The default is AUTH.
 #
-#      @param tcp_keepalice
+#      @param tcp_keepalive
 #              Specifies whether the system should send TCP keepalive messages to the other side.  If they are sent, death of the connection or crash of one of the machines
 #              will be properly noticed.  However, this means that connections will die if the route is down temporarily, and some people find it annoying.  On the other hand,
 #              if TCP keepalives are not sent, sessions may hang indefinitely on the server, leaving "ghost" users and consuming server resources.
@@ -623,33 +604,39 @@ class ssh::config (
   Numeric $protocol = $::ssh::params::protocol,
   Array[String] $host_keys = $::ssh::params::host_keys,
   Array[String] $listen_addresses = $::ssh::params::listen_addresses,
-  String $address_family = $::ssh::params::address_family,
+  Enum['any','ipv4','ipv6'] $address_family = $::ssh::params::address_family,
   String $syslog_facility = $::ssh::params::syslog_facility,
   Enum['INFO','VERBOSE',"DEBUG',"] $log_level = $::ssh::params::log_level,
   Numeric $login_grace_time = $::ssh::params::login_grace_time,
-  Variant[Boolean, Enum['yes','no']] $permit_root_login = $::ssh::params::permit_root_login,
+  Enum['yes','no','without-password'] $permit_root_login = $::ssh::params::permit_root_login,
   Variant[Boolean, Enum['yes','no']] $strict_modes = $::ssh::params::strict_modes,
-  Numeric $max_auth_tries = $::ssh::params::max_auth_tries,
   Variant[Boolean, Enum['yes','no']] $pubkey_authentication = $::ssh::params::pubkey_authentication,
   Variant[Boolean, Enum['yes','no']] $rsa_authentication = $::ssh::params::rsa_authentication,
   String $authorized_keys_file = $::ssh::params::authorized_keys_file,
-  Variant[Boolean, Enum['yes','no']] $password_authentication = $::ssh::params::password_authentication,
-  Variant[Boolean, Enum['yes','no']] $permit_empty_passwords = $::ssh::params::permit_empty_passwords,
+  Boolean $password_authentication = $::ssh::params::password_authentication,
+  Boolean $ignore_user_known_hosts = $::ssh::params::ignore_user_known_hosts,
+  Boolean $permit_empty_passwords = $::ssh::params::permit_empty_passwords,
+  Boolean $permit_tty = $::ssh::params::permit_tty,
+  Array[String] $permit_open = $::ssh::params::permit_open,
   Variant[Boolean, Enum['yes','no']] $challenge_response_authentication = $::ssh::params::challenge_response_authentication,
   Variant[Boolean, Enum['yes','no']] $gssapi_authentication = $::ssh::params::gssapi_authentication,
   Variant[Boolean, Enum['yes','no']] $gssapi_cleanup_credentials = $::ssh::params::gssapi_cleanup_credentials,
-  Variant[Boolean, Enum['yes','no']] $use_dns = $::ssh::params::use_dns,
-  Variant[Boolean, Enum['yes','no']] $use_pam = $::ssh::params::use_pam,
-  Variant[Boolean, Enum['yes','no']] $allow_agent_forwarding = $::ssh::params::allow_agent_forwarding,
-  Variant[Boolean, Enum['yes','no']] $allow_tcp_forwarding = $::ssh::params::allow_tcp_forwarding,
-  Variant[Boolean, Enum['yes','no']] $x11_forwarding = $::ssh::params::x11_forwarding,
-  Variant[Boolean, Enum['yes','no']] $x11_use_localhost = $::ssh::params::x11_use_localhost,
-  Variant[Boolean, Enum['yes','no']] $print_motd = $::ssh::params::print_motd,
-  Variant[Boolean, Enum['yes','no']] $tcp_keepalive = $::ssh::params::tcp_keepalive,
+  Boolean $use_dns = $::ssh::params::use_dns,
+  Boolean $use_pam = $::ssh::params::use_pam,
+  Boolean $allow_agent_forwarding = $::ssh::params::allow_agent_forwarding,
+  Boolean $allow_tcp_forwarding = $::ssh::params::allow_tcp_forwarding,
+  Boolean $x11_forwarding = $::ssh::params::x11_forwarding,
+  Boolean $x11_use_localhost = $::ssh::params::x11_use_localhost,
+  Boolean $permit_user_environment = $::ssh::params::permit_user_environment,
+  Boolean $print_motd = $::ssh::params::print_motd,
+  Boolean $tcp_keepalive = $::ssh::params::tcp_keepalive,
   Variant[Boolean, Enum['yes','no']] $compression = $::ssh::params::compression,
+  Boolean $allow_stream_local_forwarding = $::ssh::params::allow_stream_local_forwarding,
   Numeric $client_alive_interval = $::ssh::params::client_alive_interval,
+  Numeric $client_alive_count_max = $::ssh::params::client_alive_count_max,
   String $chroot_directory = $::ssh::params::chroot_directory,
   Variant[Boolean, Enum['yes','no']] $permit_tunnel = $::ssh::params::permit_tunnel,
+  Numeric $max_auth_tries = $::ssh::params::max_auth_tries,
   Numeric $max_sessions = $::ssh::params::max_sessions,
   String $banner = $::ssh::params::banner,
   Array[String] $kex_algorithms = $::ssh::params::kex_algorithms,
@@ -660,7 +647,11 @@ class ssh::config (
   Array[String] $deny_users = [],
   Array[String] $deny_groups = [],
   Array[String] $authentication_methods = [],
-  Variant[Boolean, Enum['yes','no']] $disable_forwarding = $::ssh::params::disable_forwarding,
+  Array[String] $accept_env = $::ssh::params::accept_env,
+  Boolean $debian_banner = $::ssh::params::debian_banner,
+  Enum['sha256','md5'] $fingerprint_hash = $::ssh::params::fingerprint_hash,
+  Boolean $disable_forwarding = $::ssh::params::disable_forwarding,
+  Boolean $ignore_rhosts = $::ssh::params::ignore_rhosts,
 ){
   file { '/etc/ssh/sshd_config':
     ensure  => present,

@@ -20,29 +20,33 @@ class ssh::params {
   $syslog_facility = 'AUTHPRIV'
   $log_level = 'INFO'
   $login_grace_time = 120
-  $permit_root_login = 'no'
+  $permit_root_login = 'without-password'
   $strict_modes = 'yes'
   $max_auth_tries = 3
   $pubkey_authentication = 'yes'
   $rsa_authentication = 'yes'
   $authorized_keys_file = '.ssh/authorized_keys'
-  $password_authentication = 'no'
-  $permit_empty_passwords = 'no'
+  $password_authentication = false
+  $permit_empty_passwords = false
   $challenge_response_authentication = 'yes'
   $gssapi_authentication = 'yes'
   $gssapi_cleanup_credentials = 'yes'
-  $use_pam = 'yes'
-  $use_dns = 'no'
-  $allow_agent_forwarding = 'yes'
-  $allow_tcp_forwarding = 'yes'
-  $x11_forwarding = 'no'
-  $x11_use_localhost = 'yes'
-  $print_motd = 'no'
-  $tcp_keepalive = 'yes'
-  $compression = 'no'
+  $use_pam = true
+  $use_dns = false
+  $allow_agent_forwarding = true
+  $allow_tcp_forwarding = true
+  $allow_stream_local_forwarding = false
+  $ignore_user_known_hosts = false
+  $x11_forwarding = false
+  $x11_use_localhost = true
+  $print_motd = false
+  $tcp_keepalive = true
+  $compression = false
   $client_alive_interval = 0
   $client_alive_count_max = 2
   $max_sessions = 2
+  $fingerprint_hash = 'sha256'
+  $ignore_rhosts = true
   $banner = 'none'
   $chroot_directory = 'none'
   $permit_tunnel = 'no'
@@ -65,8 +69,15 @@ class ssh::params {
     "aes192-ctr",
     "aes128-ctr",
   ]
-  $disable_forwarding = no
-
+  $disable_forwarding = false
+  $accept_env = [
+    "LANG",
+    "LC_*",
+  ]
+  $debian_banner = false
+  $permit_open = []
+  $permit_tty = true
+  $permit_user_environment = false
 
   case $::osfamily {
     'Debian': {
