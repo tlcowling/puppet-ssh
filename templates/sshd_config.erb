@@ -40,6 +40,11 @@ PrintMotd yes
 <%- else -%>
 PrintMotd no
 <%- end -%>
+<%- if @strict_modes -%>
+StrictModes yes
+<%- else -%>
+StrictModes no
+<%- end -%>
 <%- if @allow_agent_forwarding -%>
 AllowAgentForwarding yes
 <%- else -%>
@@ -59,8 +64,10 @@ AllowStreamLocalForwarding no
 ChrootDirectory <%= @chroot_directory -%>
 <%- end %>
 <%- if @challenge_response_authentication -%>
-ChallengeResponseAuthentication <%= @challenge_response_authentication -%>
-<%- end %>
+ChallengeResponseAuthentication yes
+<%- else -%>
+ChallengeResponseAuthentication yes
+<%- end -%>
 <%- if @compression -%>
 Compression <%= @compression -%>
 <%- end %>
@@ -71,8 +78,15 @@ Macs <%= @macs.join(",") %>
 DisableForwarding <%= @disable_forwarding -%>
 <%- end %>
 <%- if @gssapi_authentication -%>
-GSSAPIAuthentication <%= @gssapi_authentication -%>
-<%- end %>
+GSSAPIAuthentication yes
+<%- else -%>
+GSSAPIAuthentication no
+<%- end -%>
+<%- if @gssapi_cleanup_credentials -%>
+GSSAPICleanupCredentials yes
+<%- else -%>
+GSSAPICleanupCredentials no
+<%- end -%>
 <%- if @log_level -%>
 LogLevel <%= @log_level -%>
 <%- end %>
@@ -80,12 +94,12 @@ LogLevel <%= @log_level -%>
 IgnoreRhosts yes
 <%- else -%>
 IgnoreRhosts no
-<%- end %>
+<%- end -%>
 <%- if @ignore_user_known_hosts -%>
 IgnoreUserKnownHosts yes
 <%- else -%>
 IgnoreUserKnownHosts no
-<%- end %>
+<%- end -%>
 <%- if @login_grace_time -%>
 LoginGraceTime <%= @login_grace_time -%>
 <%- end %>
@@ -93,64 +107,79 @@ LoginGraceTime <%= @login_grace_time -%>
 PermitRootLogin yes
 <%- else -%>
 PermitRootLogin no
-<%- end %>
+<%- end -%>
 <%- if @client_alive_count_max -%>
 ClientAliveCountMax <%= @client_alive_count_max -%>
 <%- end %>
-<%- if @client_alive_interval -%>
-ClientAliveInterval <%= @client_alive_interval -%>
+<%- if @client_alive_count_interval -%>
+ClientAliveCountInterval <%= @client_alive_count_interval -%>
 <%- end %>
 <%- if @permit_empty_passwords -%>
 PermitEmptyPasswords yes
 <%- else -%>
 PermitEmptyPasswords no
-<%- end %>
+<%- end -%>
 <%- if @password_authentication -%>
 PasswordAuthentication yes
 <%- else -%>
 PasswordAuthentication no
-<%- end %>
+<%- end -%>
+<%- if @pubkey_authentication -%>
+PubKeyAuthentication yes
+<%- else -%>
+PubKeyAuthentication no
+<%- end -%>
+<%- if @rsa_authentication -%>
+RSAAuthentication yes
+<%- else -%>
+RSAAuthentication no
+<%- end -%>
 <%- if @permit_tty -%>
 PermitTTY yes
 <%- else -%>
 PermitTTY no
-<%- end %>
+<%- end -%>
+<%- if @permit_tunnel -%>
+PermitTunnel yes
+<%- else -%>
+PermitTunnel no
+<%- end -%>
 <%- if @max_auth_tries -%>
 MaxAuthTries <%= @max_auth_tries %>
-<%- end %>
+<%- end -%>
 <%- if @max_sessions -%>
 MaxSessions <%= @max_sessions %>
-<%- end %>
+<%- end -%>
 <%- if @disable_forwarding -%>
 DisableForwarding yes
 <%- else -%>
 DisableForwarding no
-<%- end %>
+<%- end -%>
 <%- if @debian_banner -%>
 DebianBanner yes
 <%- else -%>
 DebianBanner no
-<%- end %>
+<%- end -%>
 <%- if @tcp_keepalive -%>
 TCPKeepAlive yes
 <%- else -%>
 TCPKeepAlive no
-<%- end %>
+<%- end -%>
 <%- if @x11_forwarding -%>
 X11Forwarding yes
 <%- else -%>
 X11Forwarding no
-<%- end %>
+<%- end -%>
 <%- if @x11_use_localhost -%>
 X11UseLocalhost yes
 <%- else -%>
 X11UseLocalhost no
-<%- end %>
+<%- end -%>
 <%- if @permit_user_environment -%>
 PermitUserEnvironment yes
 <%- else -%>
 PermitUserEnvironment no
-<%- end %>
+<%- end -%>
 <%- if @accept_env.length > 0 -%>
 <%- @accept_env.each {|a| -%>
 AcceptEnv <%= a %>

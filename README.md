@@ -13,17 +13,27 @@
 
 Puppet module to configure OpenSSH on Linux.  Defaults to using a hardened configuration
 
-## Setup
+I originally tried a whole bunch of puppet forge modules instead of
+doing this but I couldn't get them to satisfy these requirements
 
-### Setup Requirements
+- simple to compose module for masterless puppet using librarian-puppet
+- fully configurable with hiera
+- quick to run a puppet apply
 
-If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here.
+I could not find a version of the ssh modules on puppet forge that
+satisfied all the verison requirements of the other modules I was using
+.
 
-If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
+Additionally there were a number of modules that did seem to work but
+did not allow full configuration in hiera.
 
-### Beginning with ssh
+Finally I got annoyed with all the various deprecation and warning messages
+and realised that all I want for this module is a simple yet comprehensive
+package/file/service setup with minimal dependencies.  Consequently, this
+module uses only hiera and is very quick to apply.
 
-The very basic steps needed for a user to get the module up and running. This can include setup steps, if necessary, or it can be an example of the most basic use of the module.
+I used PDK to generate this, hence the level of faff that is here
+
 
 ## Usage
 
@@ -42,28 +52,6 @@ For each element (class, defined type, function, and so on), list:
   * Valid values, if the data type doesn't make it obvious.
   * Default value, if any.
 
-For example:
-
-```
-### `pet::cat`
-
-#### Parameters
-
-##### `meow`
-
-Enables vocalization in your cat. Valid options: 'string'.
-
-Default: 'medium-loud'.
-```
-
-## Limitations
-
-In the Limitations section, list any incompatibilities, known issues, or other warnings.
-
 ## Development
 
 In the Development section, tell other users the ground rules for contributing to your project and how they should submit their work.
-
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.

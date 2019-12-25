@@ -1,7 +1,4 @@
-# == Class ssh::params
-#
-# This class is meant to be called from ssh.
-# It sets variables according to platform.
+# @summary This class is meant to be called from ssh.  It sets variables according to platform.
 #
 class ssh::params {
   $protocol = 2
@@ -21,16 +18,16 @@ class ssh::params {
   $log_level = 'INFO'
   $login_grace_time = 120
   $permit_root_login = 'without-password'
-  $strict_modes = 'yes'
+  $strict_modes = true
   $max_auth_tries = 3
-  $pubkey_authentication = 'yes'
-  $rsa_authentication = 'yes'
+  $pubkey_authentication = true
+  $rsa_authentication = true
   $authorized_keys_file = '.ssh/authorized_keys'
   $password_authentication = false
   $permit_empty_passwords = false
-  $challenge_response_authentication = 'yes'
-  $gssapi_authentication = 'yes'
-  $gssapi_cleanup_credentials = 'yes'
+  $challenge_response_authentication = true
+  $gssapi_authentication = true
+  $gssapi_cleanup_credentials = true
   $use_pam = true
   $use_dns = false
   $allow_agent_forwarding = true
@@ -42,14 +39,14 @@ class ssh::params {
   $print_motd = false
   $tcp_keepalive = true
   $compression = false
-  $client_alive_interval = 0
+  $client_alive_count_interval = 0
   $client_alive_count_max = 2
   $max_sessions = 2
   $fingerprint_hash = 'sha256'
   $ignore_rhosts = true
   $banner = 'none'
   $chroot_directory = 'none'
-  $permit_tunnel = 'no'
+  $permit_tunnel = false
   $kex_algorithms = [
     "diffie-hellman-group14-sha256",
     "diffie-hellman-group16-sha512",
