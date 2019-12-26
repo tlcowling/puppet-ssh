@@ -173,7 +173,6 @@
 # @param permit_tunnel
 #    Specifies whether tun(4) device forwarding is allowed.  The argument must be yes, point-to-point (layer 3), ethernet (layer 2), or no.  Specifying yes permits
 #    both point-to-point and ethernet.  The default is no.
-#
 #    Independent of this setting, the permissions of the selected tun(4) device must allow access to the user.
 # @param port
 #   Specifies the port number that sshd(8) listens on.  The default is 22.  Multiple options of this type are permitted.  See also ListenAddress.
@@ -217,6 +216,201 @@
 #   server to the loopback address and sets the hostname part of the DISPLAY environment variable to localhost.  This prevents remote hosts from connecting to the
 #   proxy display.  However, some older X11 clients may not function with this configuration.  X11UseLocalhost may be set to no to specify that the forwarding
 #   server should be bound to the wildcard address.  The argument must be yes or no.  The default is yes.
+# @param host_based_uses_name_from_packet_only
+#   Specifies whether or not the server will attempt to perform a reverse name lookup when matching the name in the ~/.shosts, ~/.rhosts, and /etc/hosts.equiv files
+#   during HostbasedAuthentication.  A setting of yes means that sshd(8) uses the name supplied by the client rather than attempting to resolve the name from the
+#   TCP connection itself.  The default is no.
+# @param host_certificate
+#   Specifies a file containing a public host certificate.  The certificate's public key must match a private host key already specified by HostKey.  The default
+#   behaviour of sshd(8) is not to load any certificates.
+# @param host_key
+#   Specifies a file containing a private host key used by SSH.  The defaults are /etc/ssh/ssh_host_rsa_key, /etc/ssh/ssh_host_ecdsa_key and
+#   /etc/ssh/ssh_host_ed25519_key.
+#   Note that sshd(8) will refuse to use a file if it is group/world-accessible and that the HostKeyAlgorithms option restricts which of the keys are actually used
+#   by sshd(8).
+#   It is possible to have multiple host key files.  It is also possible to specify public host key files instead.  In this case operations on the private key will
+#   be delegated to an ssh-agent(1).
+# @param host_key_agent
+#   Identifies the UNIX-domain socket used to communicate with an agent that has access to the private host keys.  If the string "SSH_AUTH_SOCK" is specified, the
+#   location of the socket will be read from the SSH_AUTH_SOCK environment variable.
+# @param host_key_algorithms
+#   Specifies the host key algorithms that the server offers.  The default for this option is:
+#   ecdsa-sha2-nistp256-cert-v01@openssh.com,
+#   ecdsa-sha2-nistp384-cert-v01@openssh.com,
+#   ecdsa-sha2-nistp521-cert-v01@openssh.com,
+#   ssh-ed25519-cert-v01@openssh.com,
+#   ssh-rsa-cert-v01@openssh.com,
+#   ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,
+#   ssh-ed25519,ssh-rsa
+#   The list of available key types may also be obtained using "ssh -Q key".
+# @param ignore_user_known_hosts
+#   Specifies whether sshd(8) should ignore the user's ~/.ssh/known_hosts during HostbasedAuthentication.  The default is no.
+#
+# @param ipqos
+#   Specifies the IPv4 type-of-service or DSCP class for the connection.  Accepted values are af11, af12, af13, af21, af22, af23, af31, af32, af33, af41, af42,
+#   af43, cs0, cs1, cs2, cs3, cs4, cs5, cs6, cs7, ef, lowdelay, throughput, reliability, a numeric value, or none to use the operating system default.  This option
+#   may take one or two arguments, separated by whitespace.  If one argument is specified, it is used as the packet class unconditionally.  If two values are speci‐
+#   fied, the first is automatically selected for interactive sessions and the second for non-interactive sessions.  The default is lowdelay for interactive ses‐
+#   sions and throughput for non-interactive sessions.
+# @param kbd_interactive_authentication
+#   Specifies whether to allow keyboard-interactive authentication.  The argument to this keyword must be yes or no.  The default is to use whatever value
+#   ChallengeResponseAuthentication is set to (by default yes).
+# @param kerberos_authentication
+#   Specifies whether the password provided by the user for PasswordAuthentication will be validated through the Kerberos KDC.  To use this option, the server needs
+#   a Kerberos servtab which allows the verification of the KDC's identity.  The default is no.
+# @param kerberos_authentication
+#   If AFS is active and the user has a Kerberos 5 TGT, attempt to acquire an AFS token before accessing the user's home directory.  The default is no.
+# @param kerberos_or_local_passwd
+#   If password authentication through Kerberos fails then the password will be validated via any additional local mechanism such as /etc/passwd.  The default isyes.
+# @param kerberos_ticket_cleanup
+#   Specifies whether to automatically destroy the user's ticket cache file on logout.  The default is yes.
+# @param permit_user_environment
+#   Specifies whether ~/.ssh/environment and environment= options in ~/.ssh/authorized_keys are processed by sshd(8).  The default is no.  Enabling environment pro‐
+#   cessing may enable users to bypass access restrictions in some configurations using mechanisms such as LD_PRELOAD.
+# @param permit_user_rc
+#   Specifies whether any ~/.ssh/rc file is executed.  The default is yes.
+# @param pid_file
+#   Specifies the file that contains the process ID of the SSH daemon, or none to not write one.  The default is /run/sshd.pid.
+# @param print_last_log
+#   Specifies whether sshd(8) should print the date and time of the last user login when a user logs in interactively.  The default is yes.
+# @param pubkey_accepted_key_types
+#   Specifies the key types that will be accepted for public key authentication as a comma-separated pattern list.  Alternately if the specified value begins with a
+#   ‘+’ character, then the specified key types will be appended to the default set instead of replacing them.  If the specified value begins with a ‘-’ character,
+#   then the specified key types (including wildcards) will be removed from the default set instead of replacing them.  The default for this option is
+#   ecdsa-sha2-nistp256-cert-v01@openssh.com,
+#   ecdsa-sha2-nistp384-cert-v01@openssh.com,
+#   ecdsa-sha2-nistp521-cert-v01@openssh.com,
+#   ssh-ed25519-cert-v01@openssh.com,
+#   ssh-rsa-cert-v01@openssh.com,
+#   ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,
+#   ssh-ed25519,ssh-rsa
+#   The list of available key types may also be obtained using "ssh -Q key".
+# @param rekey_limit
+#   Specifies the maximum amount of data that may be transmitted before the session key is renegotiated, optionally followed a maximum amount of time that may pass
+#   before the session key is renegotiated.  The first argument is specified in bytes and may have a suffix of ‘K’, ‘M’, or ‘G’ to indicate Kilobytes, Megabytes, or
+#   Gigabytes, respectively.  The default is between ‘1G’ and ‘4G’, depending on the cipher.  The optional second value is specified in seconds and may use any of
+#   the units documented in the TIME FORMATS section.  The default value for RekeyLimit is default none, which means that rekeying is performed after the cipher's
+#   default amount of data has been sent or received and no time based rekeying is done.
+# @param revoked_keys
+#   Specifies revoked public keys file, or none to not use one.  Keys listed in this file will be refused for public key authentication.  Note that if this file is
+#   not readable, then public key authentication will be refused for all users.  Keys may be specified as a text file, listing one public key per line, or as an
+#   OpenSSH Key Revocation List (KRL) as generated by ssh-keygen(1).  For more information on KRLs, see the KEY REVOCATION LISTS section in ssh-keygen(1).
+# @param stream_local_bind_mask
+#   Sets the octal file creation mode mask (umask) used when creating a Unix-domain socket file for local or remote port forwarding.  This option is only used for
+#   port forwarding to a Unix-domain socket file.
+#   The default value is 0177, which creates a Unix-domain socket file that is readable and writable only by the owner.  Note that not all operating systems honor
+#   the file mode on Unix-domain socket files.
+# @param stream_local_bind_unlink
+#   Specifies whether to remove an existing Unix-domain socket file for local or remote port forwarding before creating a new one.  If the socket file already
+#   exists and StreamLocalBindUnlink is not enabled, sshd will be unable to forward the port to the Unix-domain socket file.  This option is only used for port for‐
+#   warding to a Unix-domain socket file.
+#   The argument must be yes or no.  The default is no.
+# @param subsystem
+#   Configures an external subsystem (e.g. file transfer daemon).  Arguments should be a subsystem name and a command (with optional arguments) to execute upon sub‐
+#   system request.
+#   The command sftp-server implements the SFTP file transfer subsystem.
+#   Alternately the name internal-sftp implements an in-process SFTP server.  This may simplify configurations using ChrootDirectory to force a different filesystem
+#   root on clients.
+# @param syslog_facility
+#   Gives the facility code that is used when logging messages from sshd(8).  The possible values are: DAEMON, USER, AUTH, LOCAL0, LOCAL1, LOCAL2, LOCAL3, LOCAL4,
+#   LOCAL5, LOCAL6, LOCAL7.  The default is AUTH.
+# @param trusted_user_ca_keys
+#   Specifies a file containing public keys of certificate authorities that are trusted to sign user certificates for authentication, or none to not use one.  Keys
+#   are listed one per line; empty lines and comments starting with ‘#’ are allowed.  If a certificate is presented for authentication and has its signing CA key
+#   listed in this file, then it may be used for authentication for any user listed in the certificate's principals list.  Note that certificates that lack a list
+#   of principals will not be permitted for authentication using TrustedUserCAKeys.  For more details on certificates, see the CERTIFICATES section in
+#   ssh-keygen(1).
+# @param version_addendum
+#   Optionally specifies additional text to append to the SSH protocol banner sent by the server upon connection.  The default is none.
+# @param x11_display_offset
+#   Specifies the first display number available for sshd(8)'s X11 forwarding.  This prevents sshd from interfering with real X11 servers.  The default is 10.
+# @param xauth_location
+#    Specifies the full pathname of the xauth(1) program, or none to not use one.  The default is /usr/bin/xauth.
+# @param authentication_methods
+#   Specifies the authentication methods that must be successfully completed for a user to be granted access.  This option must be followed by one or more comma-
+#   separated lists of authentication method names, or by the single string any to indicate the default behaviour of accepting any single authentication method.  If
+#   the default is overridden, then successful authentication requires completion of every method in at least one of these lists.
+#   For example, "publickey,password publickey,keyboard-interactive" would require the user to complete public key authentication, followed by either password or
+#   keyboard interactive authentication.  Only methods that are next in one or more lists are offered at each stage, so for this example it would not be possible to
+#   attempt password or keyboard-interactive authentication before public key.
+#   For keyboard interactive authentication it is also possible to restrict authentication to a specific device by appending a colon followed by the device identi‐
+#   fier bsdauth, pam, or skey, depending on the server configuration.  For example, "keyboard-interactive:bsdauth" would restrict keyboard interactive authentica‐
+#   tion to the bsdauth device.
+#   If the publickey method is listed more than once, sshd(8) verifies that keys that have been used successfully are not reused for subsequent authentications.
+#   For example, "publickey,publickey" requires successful authentication using two different public keys.
+#   Note that each authentication method listed should also be explicitly enabled in the configuration.
+#   The available authentication methods are: "gssapi-with-mic", "hostbased", "keyboard-interactive", "none" (used for access to password-less accounts when
+#   PermitEmptyPassword is enabled), "password" and "publickey".
+# @param authorized_keys_command
+#   Specifies a program to be used to look up the user's public keys.  The program must be owned by root, not writable by group or others and specified by an abso‐
+#   lute path.  Arguments to AuthorizedKeysCommand accept the tokens described in the TOKENS section.  If no arguments are specified then the username of the target
+#   user is used.
+#   The program should produce on standard output zero or more lines of authorized_keys output (see AUTHORIZED_KEYS in sshd(8)).  If a key supplied by
+#   AuthorizedKeysCommand does not successfully authenticate and authorize the user then public key authentication continues using the usual AuthorizedKeysFile
+#   files.  By default, no AuthorizedKeysCommand is run.
+# @param authorized_keys_command_user
+#   Specifies the user under whose account the AuthorizedKeysCommand is run.  It is recommended to use a dedicated user that has no other role on the host than run‐
+#   ning authorized keys commands.  If AuthorizedKeysCommand is specified but AuthorizedKeysCommandUser is not, then sshd(8) will refuse to start.
+# @param authorized_keys_file
+#   Specifies the file that contains the public keys used for user authentication.  The format is described in the AUTHORIZED_KEYS FILE FORMAT section of sshd(8).
+#   Arguments to AuthorizedKeysFile accept the tokens described in the TOKENS section.  After expansion, AuthorizedKeysFile is taken to be an absolute path or one
+#   relative to the user's home directory.  Multiple files may be listed, separated by whitespace.  Alternately this option may be set to none to skip checking for
+#   user keys in files.  The default is ".ssh/authorized_keys .ssh/authorized_keys2".
+# @param authorized_principals_command
+#   Specifies a program to be used to generate the list of allowed certificate principals as per AuthorizedPrincipalsFile.  The program must be owned by root, not
+#   writable by group or others and specified by an absolute path.  Arguments to AuthorizedPrincipalsCommand accept the tokens described in the TOKENS section.  If
+#   no arguments are specified then the username of the target user is used.
+#   The program should produce on standard output zero or more lines of AuthorizedPrincipalsFile output.  If either AuthorizedPrincipalsCommand or
+#   AuthorizedPrincipalsFile is specified, then certificates offered by the client for authentication must contain a principal that is listed.  By default, no
+#   AuthorizedPrincipalsCommand is run.
+# @param authorized_principals_command_user
+#   Specifies the user under whose account the AuthorizedPrincipalsCommand is run.  It is recommended to use a dedicated user that has no other role on the host
+#   than running authorized principals commands.  If AuthorizedPrincipalsCommand is specified but AuthorizedPrincipalsCommandUser is not, then sshd(8) will refuse
+#   to start.
+# @param authorized_principals_file
+#   Specifies a file that lists principal names that are accepted for certificate authentication.  When using certificates signed by a key listed in
+#   TrustedUserCAKeys, this file lists names, one of which must appear in the certificate for it to be accepted for authentication.  Names are listed one per line
+#   preceded by key options (as described in AUTHORIZED_KEYS FILE FORMAT in sshd(8)).  Empty lines and comments starting with ‘#’ are ignored.
+#   Arguments to AuthorizedPrincipalsFile accept the tokens described in the TOKENS section.  After expansion, AuthorizedPrincipalsFile is taken to be an absolute
+#   path or one relative to the user's home directory.  The default is none, i.e. not to use a principals file – in this case, the username of the user must appear
+#   in a certificate's principals list for it to be accepted.
+#   Note that AuthorizedPrincipalsFile is only used when authentication proceeds using a CA listed in TrustedUserCAKeys and is not consulted for certification
+#   authorities trusted via ~/.ssh/authorized_keys, though the principals= key option offers a similar facility (see sshd(8) for details).
+# @param force_command
+#   Forces the execution of the command specified by ForceCommand, ignoring any command supplied by the client and ~/.ssh/rc if present.  The command is invoked by
+#   using the user's login shell with the -c option.  This applies to shell, command, or subsystem execution.  It is most useful inside a Match block.  The command
+#   originally supplied by the client is available in the SSH_ORIGINAL_COMMAND environment variable.  Specifying a command of internal-sftp will force the use of an
+#   in-process SFTP server that requires no support files when used with ChrootDirectory.  The default is none.
+# @param gateway_ports
+#   Specifies whether remote hosts are allowed to connect to ports forwarded for the client.  By default, sshd(8) binds remote port forwardings to the loopback
+#   address.  This prevents other remote hosts from connecting to forwarded ports.  GatewayPorts can be used to specify that sshd should allow remote port forward‐
+#   ings to bind to non-loopback addresses, thus allowing other hosts to connect.  The argument may be no to force remote port forwardings to be available to the
+#   local host only, yes to force remote port forwardings to bind to the wildcard address, or clientspecified to allow the client to select the address to which the
+#   forwarding is bound.  The default is no.
+# @param gssapi_key_exchange
+#   Specifies whether key exchange based on GSSAPI is allowed. GSSAPI key exchange doesn't rely on ssh keys to verify host identity.  The default is no.
+# @param gssapi_strict_acceptor_check
+#   Determines whether to be strict about the identity of the GSSAPI acceptor a client authenticates against.  If set to yes then the client must authenticate
+#   against the host service on the current hostname.  If set to no then the client may authenticate against any service key stored in the machine's default store.
+#   This facility is provided to assist with operation on multi homed machines.  The default is yes.
+# @param gssapi_store_credentials_on_rekey
+#   Controls whether the user's GSSAPI credentials should be updated following a successful connection rekeying. This option can be used to accepted renewed or
+#   updated credentials from a compatible client. The default is no.
+# @param host_based_accepted_key_types
+#   Specifies the key types that will be accepted for hostbased authentication as a comma-separated pattern list.  Alternately if the specified value begins with a
+#   ‘+’ character, then the specified key types will be appended to the default set instead of replacing them.  If the specified value begins with a ‘-’ character,
+#   then the specified key types (including wildcards) will be removed from the default set instead of replacing them.  The default for this option is:
+#   ecdsa-sha2-nistp256-cert-v01@openssh.com,
+#   ecdsa-sha2-nistp384-cert-v01@openssh.com,
+#   ecdsa-sha2-nistp521-cert-v01@openssh.com,
+#   ssh-ed25519-cert-v01@openssh.com,
+#   ssh-rsa-cert-v01@openssh.com,
+#   ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,
+#   ssh-ed25519,ssh-rsa
+#   The list of available key types may also be obtained using "ssh -Q key".
+# @param host_based_authentication
+#   Specifies whether rhosts or /etc/hosts.equiv authentication together with successful public key client host authentication is allowed (host-based authentica‐
+#   tion).  The default is no.
 class ssh::config (
   Array[Numeric] $port = $::ssh::params::port,
   Numeric $protocol = $::ssh::params::protocol,
@@ -270,164 +464,26 @@ class ssh::config (
   Enum['sha256','md5'] $fingerprint_hash = $::ssh::params::fingerprint_hash,
   Boolean $disable_forwarding = $::ssh::params::disable_forwarding,
   Boolean $ignore_rhosts = $::ssh::params::ignore_rhosts,
-
+  String $max_startups,
   Array[String] $authentication_methods,
-# @param authentication_methods
-#   Specifies the authentication methods that must be successfully completed for a user to be granted access.  This option must be followed by one or more comma-
-#   separated lists of authentication method names, or by the single string any to indicate the default behaviour of accepting any single authentication method.  If
-#   the default is overridden, then successful authentication requires completion of every method in at least one of these lists.
-#   For example, "publickey,password publickey,keyboard-interactive" would require the user to complete public key authentication, followed by either password or
-#   keyboard interactive authentication.  Only methods that are next in one or more lists are offered at each stage, so for this example it would not be possible to
-#   attempt password or keyboard-interactive authentication before public key.
-#   For keyboard interactive authentication it is also possible to restrict authentication to a specific device by appending a colon followed by the device identi‐
-#   fier bsdauth, pam, or skey, depending on the server configuration.  For example, "keyboard-interactive:bsdauth" would restrict keyboard interactive authentica‐
-#   tion to the bsdauth device.
-#   If the publickey method is listed more than once, sshd(8) verifies that keys that have been used successfully are not reused for subsequent authentications.
-#   For example, "publickey,publickey" requires successful authentication using two different public keys.
-#   Note that each authentication method listed should also be explicitly enabled in the configuration.
-#   The available authentication methods are: "gssapi-with-mic", "hostbased", "keyboard-interactive", "none" (used for access to password-less accounts when
-#   PermitEmptyPassword is enabled), "password" and "publickey".
   String $authorized_keys_command,
-  #      @param authorized_keys_command
-#              Specifies a program to be used to look up the user's public keys.  The program must be owned by root, not writable by group or others and specified by an abso‐
-#              lute path.  Arguments to AuthorizedKeysCommand accept the tokens described in the TOKENS section.  If no arguments are specified then the username of the target
-#              user is used.
-#
-#              The program should produce on standard output zero or more lines of authorized_keys output (see AUTHORIZED_KEYS in sshd(8)).  If a key supplied by
-#              AuthorizedKeysCommand does not successfully authenticate and authorize the user then public key authentication continues using the usual AuthorizedKeysFile
-#              files.  By default, no AuthorizedKeysCommand is run.
-#
   String $authorized_keys_command_user,
-# @param authorized_keys_command_user
-#   Specifies the user under whose account the AuthorizedKeysCommand is run.  It is recommended to use a dedicated user that has no other role on the host than run‐
-#  ning authorized keys commands.  If AuthorizedKeysCommand is specified but AuthorizedKeysCommandUser is not, then sshd(8) will refuse to start.
-#
-
   String $authorized_keys_file,
-# @param authorized_keys_file
-#   Specifies the file that contains the public keys used for user authentication.  The format is described in the AUTHORIZED_KEYS FILE FORMAT section of sshd(8).
-#   Arguments to AuthorizedKeysFile accept the tokens described in the TOKENS section.  After expansion, AuthorizedKeysFile is taken to be an absolute path or one
-#   relative to the user's home directory.  Multiple files may be listed, separated by whitespace.  Alternately this option may be set to none to skip checking for
-#   user keys in files.  The default is ".ssh/authorized_keys .ssh/authorized_keys2".
-#
   String $authorized_principals_command,
-# @param $authorized_principals_command
-#   Specifies a program to be used to generate the list of allowed certificate principals as per AuthorizedPrincipalsFile.  The program must be owned by root, not
-#   writable by group or others and specified by an absolute path.  Arguments to AuthorizedPrincipalsCommand accept the tokens described in the TOKENS section.  If
-#   no arguments are specified then the username of the target user is used.
-#   The program should produce on standard output zero or more lines of AuthorizedPrincipalsFile output.  If either AuthorizedPrincipalsCommand or
-#   AuthorizedPrincipalsFile is specified, then certificates offered by the client for authentication must contain a principal that is listed.  By default, no
-#   AuthorizedPrincipalsCommand is run.
-  String $authorized_principals_command_user,
-# @param authorized_principals_command_user
-#   Specifies the user under whose account the AuthorizedPrincipalsCommand is run.  It is recommended to use a dedicated user that has no other role on the host
-#   than running authorized principals commands.  If AuthorizedPrincipalsCommand is specified but AuthorizedPrincipalsCommandUser is not, then sshd(8) will refuse
-#   to start.
-
-  String $authorized_principals_file,
-# @param authorized_principals_file
-#   Specifies a file that lists principal names that are accepted for certificate authentication.  When using certificates signed by a key listed in
-#   TrustedUserCAKeys, this file lists names, one of which must appear in the certificate for it to be accepted for authentication.  Names are listed one per line
-#   preceded by key options (as described in AUTHORIZED_KEYS FILE FORMAT in sshd(8)).  Empty lines and comments starting with ‘#’ are ignored.
-#   Arguments to AuthorizedPrincipalsFile accept the tokens described in the TOKENS section.  After expansion, AuthorizedPrincipalsFile is taken to be an absolute
-#   path or one relative to the user's home directory.  The default is none, i.e. not to use a principals file – in this case, the username of the user must appear
-#   in a certificate's principals list for it to be accepted.
-#   Note that AuthorizedPrincipalsFile is only used when authentication proceeds using a CA listed in TrustedUserCAKeys and is not consulted for certification
-#   authorities trusted via ~/.ssh/authorized_keys, though the principals= key option offers a similar facility (see sshd(8) for details).
-
-
   String $force_command,
-# @param force_command
-#   Forces the execution of the command specified by ForceCommand, ignoring any command supplied by the client and ~/.ssh/rc if present.  The command is invoked by
-#   using the user's login shell with the -c option.  This applies to shell, command, or subsystem execution.  It is most useful inside a Match block.  The command
-#   originally supplied by the client is available in the SSH_ORIGINAL_COMMAND environment variable.  Specifying a command of internal-sftp will force the use of an
-#   in-process SFTP server that requires no support files when used with ChrootDirectory.  The default is none.
-
-
   Boolean $gateway_ports,
-# @param $gateway_ports
-#   Specifies whether remote hosts are allowed to connect to ports forwarded for the client.  By default, sshd(8) binds remote port forwardings to the loopback
-#   address.  This prevents other remote hosts from connecting to forwarded ports.  GatewayPorts can be used to specify that sshd should allow remote port forward‐
-#   ings to bind to non-loopback addresses, thus allowing other hosts to connect.  The argument may be no to force remote port forwardings to be available to the
-#   local host only, yes to force remote port forwardings to bind to the wildcard address, or clientspecified to allow the client to select the address to which the
-#   forwarding is bound.  The default is no.
-#
+  String $authorized_principals_command_user,
+  String $authorized_principals_file,
   Boolean $gssapi_key_exchange,
-# @param $gssapi_key_exchange
-#   Specifies whether key exchange based on GSSAPI is allowed. GSSAPI key exchange doesn't rely on ssh keys to verify host identity.  The default is no.
-
-  Boolean $gssapi_strict_acceptor_check,
-# @param gssapi_strict_acceptor_check
-#   Determines whether to be strict about the identity of the GSSAPI acceptor a client authenticates against.  If set to yes then the client must authenticate
-#   against the host service on the current hostname.  If set to no then the client may authenticate against any service key stored in the machine's default store.
-#   This facility is provided to assist with operation on multi homed machines.  The default is yes.
-
   Boolean $gssapi_store_credentials_on_rekey,
-# @param gssapi_store_credentials_on_rekey
-#   Controls whether the user's GSSAPI credentials should be updated following a successful connection rekeying. This option can be used to accepted renewed or
-#   updated credentials from a compatible client. The default is no.
-#
+  Boolean $gssapi_strict_acceptor_check,
   Array[String] $host_based_accepted_key_types,
-# @param host_based_accepted_key_types
-#   Specifies the key types that will be accepted for hostbased authentication as a comma-separated pattern list.  Alternately if the specified value begins with a
-#   ‘+’ character, then the specified key types will be appended to the default set instead of replacing them.  If the specified value begins with a ‘-’ character,
-#   then the specified key types (including wildcards) will be removed from the default set instead of replacing them.  The default for this option is:
-#   ecdsa-sha2-nistp256-cert-v01@openssh.com,
-#   ecdsa-sha2-nistp384-cert-v01@openssh.com,
-#   ecdsa-sha2-nistp521-cert-v01@openssh.com,
-#   ssh-ed25519-cert-v01@openssh.com,
-#   ssh-rsa-cert-v01@openssh.com,
-#   ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,
-#   ssh-ed25519,ssh-rsa
-#   The list of available key types may also be obtained using "ssh -Q key".
-
-
   Boolean $host_based_authentication,
-# @param host_based_authentication
-# Specifies whether rhosts or /etc/hosts.equiv authentication together with successful public key client host authentication is allowed (host-based authentica‐
-# tion).  The default is no.
-  #
-  Boolean $host_based_uses_name_from_packet_only,
-# @param host_based_uses_name_from_packet_only
-#              Specifies whether or not the server will attempt to perform a reverse name lookup when matching the name in the ~/.shosts, ~/.rhosts, and /etc/hosts.equiv files
-#              during HostbasedAuthentication.  A setting of yes means that sshd(8) uses the name supplied by the client rather than attempting to resolve the name from the
-#              TCP connection itself.  The default is no.
-#
   String $host_certificate,
-# @param host_certificate
-#   Specifies a file containing a public host certificate.  The certificate's public key must match a private host key already specified by HostKey.  The default
-#   behaviour of sshd(8) is not to load any certificates.
-
   String $host_key,
-# @param host_key
-#   Specifies a file containing a private host key used by SSH.  The defaults are /etc/ssh/ssh_host_rsa_key, /etc/ssh/ssh_host_ecdsa_key and
-#   /etc/ssh/ssh_host_ed25519_key.
-#   Note that sshd(8) will refuse to use a file if it is group/world-accessible and that the HostKeyAlgorithms option restricts which of the keys are actually used
-#   by sshd(8).
-#   It is possible to have multiple host key files.  It is also possible to specify public host key files instead.  In this case operations on the private key will
-#   be delegated to an ssh-agent(1).
-
   String $host_key_agent,
-# @param host_key_agent
-#   Identifies the UNIX-domain socket used to communicate with an agent that has access to the private host keys.  If the string "SSH_AUTH_SOCK" is specified, the
-#   location of the socket will be read from the SSH_AUTH_SOCK environment variable.
-
   Array[String] $host_key_algorithms,
-  # @param host_key_algorithms
-  #              Specifies the host key algorithms that the server offers.  The default for this option is:
-  #                 ecdsa-sha2-nistp256-cert-v01@openssh.com,
-  #                 ecdsa-sha2-nistp384-cert-v01@openssh.com,
-  #                 ecdsa-sha2-nistp521-cert-v01@openssh.com,
-  #                 ssh-ed25519-cert-v01@openssh.com,
-  #                 ssh-rsa-cert-v01@openssh.com,
-  #                 ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,
-  #                 ssh-ed25519,ssh-rsa
-  #              The list of available key types may also be obtained using "ssh -Q key".
-  #
   Boolean $ignore_user_known_hosts,
-  # @param ignore_user_known_hosts
-  #              Specifies whether sshd(8) should ignore the user's ~/.ssh/known_hosts during HostbasedAuthentication.  The default is no.
-  #
   Array[
     Variant[
       Enum[
@@ -459,148 +515,26 @@ class ssh::config (
       Numeric,
     ]
   ] $ipqos,
-  # @param ipqos
-  #   Specifies the IPv4 type-of-service or DSCP class for the connection.  Accepted values are af11, af12, af13, af21, af22, af23, af31, af32, af33, af41, af42,
-  #   af43, cs0, cs1, cs2, cs3, cs4, cs5, cs6, cs7, ef, lowdelay, throughput, reliability, a numeric value, or none to use the operating system default.  This option
-  #   may take one or two arguments, separated by whitespace.  If one argument is specified, it is used as the packet class unconditionally.  If two values are speci‐
-  #   fied, the first is automatically selected for interactive sessions and the second for non-interactive sessions.  The default is lowdelay for interactive ses‐
-  #   sions and throughput for non-interactive sessions.
-  #
+  Boolean $host_based_uses_name_from_packet_only,
   Boolean $kbd_interactive_authentication,
-# @param kbd_interactive_authentication
-#   Specifies whether to allow keyboard-interactive authentication.  The argument to this keyword must be yes or no.  The default is to use whatever value
-#   ChallengeResponseAuthentication is set to (by default yes).
-  #
   Boolean $kerberos_authentication,
-# @param kerberos_authentication
-#   Specifies whether the password provided by the user for PasswordAuthentication will be validated through the Kerberos KDC.  To use this option, the server needs
-#   a Kerberos servtab which allows the verification of the KDC's identity.  The default is no.
-
   Boolean $kerberos_get_afs_token,
-# @param kerberos_authentication
-#   If AFS is active and the user has a Kerberos 5 TGT, attempt to acquire an AFS token before accessing the user's home directory.  The default is no.
-
-  Boolean $kerberos_or_local_passwd,
-# @param kerberos_or_local_passwd
-#   If password authentication through Kerberos fails then the password will be validated via any additional local mechanism such as /etc/passwd.  The default isyes.
-  #
   Boolean $kerberos_ticket_cleanup,
-# @param kerberos_ticket_cleanup
-#   Specifies whether to automatically destroy the user's ticket cache file on logout.  The default is yes.
-
-  #      Match   Introduces a conditional block.  If all of the criteria on the Match line are satisfied, the keywords on the following lines override those set in the global
-  #              section of the config file, until either another Match line or the end of the file.  If a keyword appears in multiple Match blocks that are satisfied, only the
-  #              first instance of the keyword is applied.
-  #
-  #              The arguments to Match are one or more criteria-pattern pairs or the single token All which matches all criteria.  The available criteria are User, Group, Host,
-  #              LocalAddress, LocalPort, and Address.  The match patterns may consist of single entries or comma-separated lists and may use the wildcard and negation operators
-  #              described in the PATTERNS section of ssh_config(5).
-  #
-  #              The patterns in an Address criteria may additionally contain addresses to match in CIDR address/masklen format, such as 192.0.2.0/24 or 2001:db8::/32.  Note
-  #              that the mask length provided must be consistent with the address - it is an error to specify a mask length that is too long for the address or one with bits
-  #              set in this host portion of the address.  For example, 192.0.2.0/33 and 192.0.2.0/8, respectively.
-  #
-  #              Only a subset of keywords may be used on the lines following a Match keyword.  Available keywords are AcceptEnv, AllowAgentForwarding, AllowGroups,
-  #              AllowStreamLocalForwarding, AllowTcpForwarding, AllowUsers, AuthenticationMethods, AuthorizedKeysCommand, AuthorizedKeysCommandUser, AuthorizedKeysFile,
-  #              AuthorizedPrincipalsCommand, AuthorizedPrincipalsCommandUser, AuthorizedPrincipalsFile, Banner, ChrootDirectory, ClientAliveCountMax, ClientAliveInterval,
-  #              DenyGroups, DenyUsers, ForceCommand, GatewayPorts, GSSAPIAuthentication, HostbasedAcceptedKeyTypes, HostbasedAuthentication, HostbasedUsesNameFromPacketOnly,
-  #              IPQoS, KbdInteractiveAuthentication, KerberosAuthentication, LogLevel, MaxAuthTries, MaxSessions, PasswordAuthentication, PermitEmptyPasswords, PermitOpen,
-  #              PermitRootLogin, PermitTTY, PermitTunnel, PermitUserRC, PubkeyAcceptedKeyTypes, PubkeyAuthentication, RekeyLimit, RevokedKeys, StreamLocalBindMask,
-  #              StreamLocalBindUnlink, TrustedUserCAKeys, X11DisplayOffset, X11Forwarding and X11UseLocalHost.
-  #
-  #
   Boolean $permit_user_environment,
-# @param permit_user_environment
-#   Specifies whether ~/.ssh/environment and environment= options in ~/.ssh/authorized_keys are processed by sshd(8).  The default is no.  Enabling environment pro‐
-#   cessing may enable users to bypass access restrictions in some configurations using mechanisms such as LD_PRELOAD.
+  Boolean $kerberos_or_local_passwd,
   Boolean $permit_user_rc,
-# @param $permit_user_rc
-#   Specifies whether any ~/.ssh/rc file is executed.  The default is yes.
   String $pid_file = $::ssh::params::pid_file,
-# @param pid_file
-#   Specifies the file that contains the process ID of the SSH daemon, or none to not write one.  The default is /run/sshd.pid.
-
   Boolean $print_last_log,
-# @param print_last_log
-#   Specifies whether sshd(8) should print the date and time of the last user login when a user logs in interactively.  The default is yes.
-  #
   Array[String] $pubkey_accepted_key_types,
-# @param pubkey_accepted_key_types
-#   Specifies the key types that will be accepted for public key authentication as a comma-separated pattern list.  Alternately if the specified value begins with a
-#   ‘+’ character, then the specified key types will be appended to the default set instead of replacing them.  If the specified value begins with a ‘-’ character,
-#   then the specified key types (including wildcards) will be removed from the default set instead of replacing them.  The default for this option is
-#   ecdsa-sha2-nistp256-cert-v01@openssh.com,
-#   ecdsa-sha2-nistp384-cert-v01@openssh.com,
-#   ecdsa-sha2-nistp521-cert-v01@openssh.com,
-#   ssh-ed25519-cert-v01@openssh.com,
-#   ssh-rsa-cert-v01@openssh.com,
-#   ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,
-#   ssh-ed25519,ssh-rsa
-#   The list of available key types may also be obtained using "ssh -Q key".
-
   String $rekey_limit,
-# @param rekey_limit
-#   Specifies the maximum amount of data that may be transmitted before the session key is renegotiated, optionally followed a maximum amount of time that may pass
-#   before the session key is renegotiated.  The first argument is specified in bytes and may have a suffix of ‘K’, ‘M’, or ‘G’ to indicate Kilobytes, Megabytes, or
-#   Gigabytes, respectively.  The default is between ‘1G’ and ‘4G’, depending on the cipher.  The optional second value is specified in seconds and may use any of
-#   the units documented in the TIME FORMATS section.  The default value for RekeyLimit is default none, which means that rekeying is performed after the cipher's
-#   default amount of data has been sent or received and no time based rekeying is done.
-
-  String $revoked_keys,
-# @param revoked_keys
-#   Specifies revoked public keys file, or none to not use one.  Keys listed in this file will be refused for public key authentication.  Note that if this file is
-#   not readable, then public key authentication will be refused for all users.  Keys may be specified as a text file, listing one public key per line, or as an
-#   OpenSSH Key Revocation List (KRL) as generated by ssh-keygen(1).  For more information on KRLs, see the KEY REVOCATION LISTS section in ssh-keygen(1).
-
   String $stream_local_bind_mask,
-# @param stream_local_bind_mask
-#   Sets the octal file creation mode mask (umask) used when creating a Unix-domain socket file for local or remote port forwarding.  This option is only used for
-#   port forwarding to a Unix-domain socket file.
-#
-#   The default value is 0177, which creates a Unix-domain socket file that is readable and writable only by the owner.  Note that not all operating systems honor
-#   the file mode on Unix-domain socket files.
-
   Boolean $stream_local_bind_unlink,
-# @param stream_local_bind_unlink
-#   Specifies whether to remove an existing Unix-domain socket file for local or remote port forwarding before creating a new one.  If the socket file already
-#   exists and StreamLocalBindUnlink is not enabled, sshd will be unable to forward the port to the Unix-domain socket file.  This option is only used for port for‐
-#   warding to a Unix-domain socket file.
-#
-#   The argument must be yes or no.  The default is no.
-
-# @param subsystem
-#   Configures an external subsystem (e.g. file transfer daemon).  Arguments should be a subsystem name and a command (with optional arguments) to execute upon sub‐
-#   system request.
-#
-#   The command sftp-server implements the SFTP file transfer subsystem.
-#
-#   Alternately the name internal-sftp implements an in-process SFTP server.  This may simplify configurations using ChrootDirectory to force a different filesystem
-#   root on clients.
   Array[String] $subsystem,
-
-# @param syslog_facility
-#   Gives the facility code that is used when logging messages from sshd(8).  The possible values are: DAEMON, USER, AUTH, LOCAL0, LOCAL1, LOCAL2, LOCAL3, LOCAL4,
-#   LOCAL5, LOCAL6, LOCAL7.  The default is AUTH.
-  String $syslog_facility,
-
-# @param trusted_user_ca_keys
-#   Specifies a file containing public keys of certificate authorities that are trusted to sign user certificates for authentication, or none to not use one.  Keys
-#   are listed one per line; empty lines and comments starting with ‘#’ are allowed.  If a certificate is presented for authentication and has its signing CA key
-#   listed in this file, then it may be used for authentication for any user listed in the certificate's principals list.  Note that certificates that lack a list
-#   of principals will not be permitted for authentication using TrustedUserCAKeys.  For more details on certificates, see the CERTIFICATES section in
-#   ssh-keygen(1).
   String $trusted_user_ca_keys,
-
-# @param version_addendum
-#   Optionally specifies additional text to append to the SSH protocol banner sent by the server upon connection.  The default is none.
-  String $version_addendum,
-
-# @param x11_display_offset
-#   Specifies the first display number available for sshd(8)'s X11 forwarding.  This prevents sshd from interfering with real X11 servers.  The default is 10.
   Numeric $x11_display_offset,
-# @param xauth_location
-#    Specifies the full pathname of the xauth(1) program, or none to not use one.  The default is /usr/bin/xauth.
+  String $version_addendum,
   String $xauth_location,
+  String $revoked_keys,
 ) {
   file { '/etc/ssh/sshd_config':
     ensure  => present,
