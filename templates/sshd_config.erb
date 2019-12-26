@@ -68,6 +68,9 @@ ChallengeResponseAuthentication yes
 <%- else -%>
 ChallengeResponseAuthentication yes
 <%- end -%>
+<%- if @authorized_keys_file -%>
+AuthorizedKeysFile <%= @authorized_keys_file.join(" ") %>
+<%- end -%>
 <%- if @compression -%>
 Compression <%= @compression -%>
 <%- end %>
@@ -103,10 +106,12 @@ IgnoreUserKnownHosts no
 <%- if @login_grace_time -%>
 LoginGraceTime <%= @login_grace_time -%>
 <%- end %>
-<%- if @permit_root_login -%>
+<%- case @permit_root_login; when true, "on" -%>
 PermitRootLogin yes
-<%- else -%>
+<%- when false, "no" -%>
 PermitRootLogin no
+<%- else -%>
+PermitRootLogin <%= @permit_root_login -%>
 <%- end -%>
 <%- if @client_alive_count_max -%>
 ClientAliveCountMax <%= @client_alive_count_max -%>
@@ -170,6 +175,11 @@ X11Forwarding yes
 <%- else -%>
 X11Forwarding no
 <%- end -%>
+<%- if @permit_user_rc -%>
+PermitUserRC yes
+<%- else -%>
+PermitUserRC no
+<%- end -%>
 <%- if @x11_use_localhost -%>
 X11UseLocalhost yes
 <%- else -%>
@@ -213,4 +223,14 @@ FingerprintHash <%= @fingerprint_hash -%>
 PermitOpen <%= po %>
 <%- } -%>
 <%- end -%>
-
+<%- if @ipqos -%>
+IPQoS <%= @ipqos.join(" ") %>
+<%- end -%>
+<%- if @host_based_accepted_key_types -%>
+HostBasedKeyTypes <%= @host_based_accepted_key_types.join(" ") %>
+<%- end -%>
+<%- if @host_certificates.length > 0 -%>
+<%- @host_certificates.each {|hc| -%>
+HostCertificate <%= hc %>
+<%- } -%>
+<%- end -%>

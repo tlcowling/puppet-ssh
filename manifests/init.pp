@@ -1,15 +1,9 @@
-# Class: ssh
-# ===========================
+# @summary Installs and configures a hardened SSH server
 #
-# Installs and configures a hardened SSH server
-#
-# Parameters
-# ----------
-#
-# * `sample parameter`
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
-#
+# @param package_name
+#   Override the name of the package if it is different from the default on your OS
+# @param service_name
+#   Override the name of the service if it is different from the default on your OS
 class ssh (
   $package_name = $::ssh::params::package_name,
   $service_name = $::ssh::params::service_name,
@@ -17,8 +11,8 @@ class ssh (
 
   # validate parameters here
 
-  class { '::ssh::install': } ->
-  class { '::ssh::config': } ~>
-  class { '::ssh::service': } ->
-  Class['::ssh']
+  class { '::ssh::install': }
+  -> class { '::ssh::config': }
+  ~> class { '::ssh::service': }
+  -> Class['::ssh']
 }

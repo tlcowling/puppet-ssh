@@ -220,11 +220,11 @@
 #   Specifies whether or not the server will attempt to perform a reverse name lookup when matching the name in the ~/.shosts, ~/.rhosts, and /etc/hosts.equiv files
 #   during HostbasedAuthentication.  A setting of yes means that sshd(8) uses the name supplied by the client rather than attempting to resolve the name from the
 #   TCP connection itself.  The default is no.
-# @param host_certificate
+# @param host_certificates
 #   Specifies a file containing a public host certificate.  The certificate's public key must match a private host key already specified by HostKey.  The default
 #   behaviour of sshd(8) is not to load any certificates.
-# @param host_key
-#   Specifies a file containing a private host key used by SSH.  The defaults are /etc/ssh/ssh_host_rsa_key, /etc/ssh/ssh_host_ecdsa_key and
+# @param host_keys
+#   Specifies a list of files containing a private host key used by SSH.  The defaults are /etc/ssh/ssh_host_rsa_key, /etc/ssh/ssh_host_ecdsa_key and
 #   /etc/ssh/ssh_host_ed25519_key.
 #   Note that sshd(8) will refuse to use a file if it is group/world-accessible and that the HostKeyAlgorithms option restricts which of the keys are actually used
 #   by sshd(8).
@@ -245,7 +245,6 @@
 #   The list of available key types may also be obtained using "ssh -Q key".
 # @param ignore_user_known_hosts
 #   Specifies whether sshd(8) should ignore the user's ~/.ssh/known_hosts during HostbasedAuthentication.  The default is no.
-#
 # @param ipqos
 #   Specifies the IPv4 type-of-service or DSCP class for the connection.  Accepted values are af11, af12, af13, af21, af22, af23, af31, af32, af33, af41, af42,
 #   af43, cs0, cs1, cs2, cs3, cs4, cs5, cs6, cs7, ef, lowdelay, throughput, reliability, a numeric value, or none to use the operating system default.  This option
@@ -420,11 +419,11 @@ class ssh::config (
   String $syslog_facility = $::ssh::params::syslog_facility,
   Enum['INFO','VERBOSE',"DEBUG',"] $log_level = $::ssh::params::log_level,
   Numeric $login_grace_time = $::ssh::params::login_grace_time,
-  Enum['yes','no','without-password'] $permit_root_login = $::ssh::params::permit_root_login,
+  Variant[Boolean, Enum['yes','no','without-password']] $permit_root_login = $::ssh::params::permit_root_login,
   Boolean $strict_modes = $::ssh::params::strict_modes,
   Boolean $pubkey_authentication = $::ssh::params::pubkey_authentication,
   Boolean $rsa_authentication = $::ssh::params::rsa_authentication,
-  String $authorized_keys_file = $::ssh::params::authorized_keys_file,
+  Array[String] $authorized_keys_file = $::ssh::params::authorized_keys_file,
   Boolean $password_authentication = $::ssh::params::password_authentication,
   Boolean $ignore_user_known_hosts = $::ssh::params::ignore_user_known_hosts,
   Boolean $permit_empty_passwords = $::ssh::params::permit_empty_passwords,
@@ -464,26 +463,22 @@ class ssh::config (
   Enum['sha256','md5'] $fingerprint_hash = $::ssh::params::fingerprint_hash,
   Boolean $disable_forwarding = $::ssh::params::disable_forwarding,
   Boolean $ignore_rhosts = $::ssh::params::ignore_rhosts,
-  String $max_startups,
-  Array[String] $authentication_methods,
-  String $authorized_keys_command,
-  String $authorized_keys_command_user,
-  String $authorized_keys_file,
-  String $authorized_principals_command,
-  String $force_command,
-  Boolean $gateway_ports,
-  String $authorized_principals_command_user,
-  String $authorized_principals_file,
-  Boolean $gssapi_key_exchange,
-  Boolean $gssapi_store_credentials_on_rekey,
-  Boolean $gssapi_strict_acceptor_check,
-  Array[String] $host_based_accepted_key_types,
-  Boolean $host_based_authentication,
-  String $host_certificate,
-  String $host_key,
-  String $host_key_agent,
-  Array[String] $host_key_algorithms,
-  Boolean $ignore_user_known_hosts,
+  String $max_startups = $::ssh::params::max_startups,
+  String $authorized_keys_command = $::ssh::params::authorized_keys_command,
+  String $authorized_keys_command_user = $::ssh::params::authorized_keys_command_user,
+  String $authorized_principals_command =$::ssh::params::authorized_principals_command,
+  String $force_command =$::ssh::params::force_command,
+  Boolean $gateway_ports =$::ssh::params::gateway_ports,
+  String $authorized_principals_command_user=$::ssh::params::authorized_principals_command_user,
+  String $authorized_principals_file=$::ssh::params::authorized_principals_file,
+  Boolean $gssapi_key_exchange=$::ssh::params::gssapi_key_exchange,
+  Boolean $gssapi_store_credentials_on_rekey=$::ssh::params::gssapi_store_credentials_on_rekey,
+  Boolean $gssapi_strict_acceptor_check=$::ssh::params::gssapi_strict_acceptor_check,
+  Array[String] $host_based_accepted_key_types=$::ssh::params::host_based_accepted_key_types,
+  Boolean $host_based_authentication=$::ssh::params::host_based_authentication,
+  Array[String] $host_certificates=$::ssh::params::host_certificates,
+  String $host_key_agent=$::ssh::params::host_key_agent,
+  Array[String] $host_key_algorithms=$::ssh::params::host_key_algorithms,
   Array[
     Variant[
       Enum[
@@ -514,27 +509,26 @@ class ssh::config (
       ],
       Numeric,
     ]
-  ] $ipqos,
-  Boolean $host_based_uses_name_from_packet_only,
-  Boolean $kbd_interactive_authentication,
-  Boolean $kerberos_authentication,
-  Boolean $kerberos_get_afs_token,
-  Boolean $kerberos_ticket_cleanup,
-  Boolean $permit_user_environment,
-  Boolean $kerberos_or_local_passwd,
-  Boolean $permit_user_rc,
+  ] $ipqos=$::ssh::params::ipqos,
+  Boolean $host_based_uses_name_from_packet_only=$::ssh::params::host_based_uses_name_from_packet_only,
+  Boolean $kbd_interactive_authentication=$::ssh::params::kbd_interactive_authentication,
+  Boolean $kerberos_authentication=$::ssh::params::kerberos_authentication,
+  Boolean $kerberos_get_afs_token=$::ssh::params::kerberos_get_afs_token,
+  Boolean $kerberos_ticket_cleanup=$::ssh::params::kerberos_ticket_cleanup,
+  Boolean $kerberos_or_local_passwd=$::ssh::params::kerberos_or_local_passwd,
+  Boolean $permit_user_rc=$::ssh::params::permit_user_rc,
   String $pid_file = $::ssh::params::pid_file,
-  Boolean $print_last_log,
-  Array[String] $pubkey_accepted_key_types,
-  String $rekey_limit,
-  String $stream_local_bind_mask,
-  Boolean $stream_local_bind_unlink,
-  Array[String] $subsystem,
-  String $trusted_user_ca_keys,
-  Numeric $x11_display_offset,
-  String $version_addendum,
-  String $xauth_location,
-  String $revoked_keys,
+  Boolean $print_last_log=$::ssh::params::print_last_log,
+  Array[String] $pubkey_accepted_key_types=$::ssh::params::pubkey_accepted_key_types,
+  Array[String] $rekey_limit = $::ssh::params::rekey_limit,
+  String $stream_local_bind_mask=$::ssh::params::stream_local_bind_mask,
+  Boolean $stream_local_bind_unlink=$::ssh::params::stream_local_bind_unlink,
+  Array[String] $subsystem=$::ssh::params::subsystem,
+  String $trusted_user_ca_keys=$::ssh::params::trusted_user_ca_keys,
+  Numeric $x11_display_offset=$::ssh::params::x11_display_offset,
+  String $version_addendum=$::ssh::params::version_addendum,
+  String $xauth_location=$::ssh::params::xauth_location,
+  String $revoked_keys=$::ssh::params::revoked_keys,
 ) {
   file { '/etc/ssh/sshd_config':
     ensure  => present,

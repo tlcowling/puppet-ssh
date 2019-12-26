@@ -2,9 +2,9 @@
 #
 class ssh::service {
   service { $::ssh::service_name:
-  ensure     => running,
-  enable     => true,
-  hasstatus  => true,
+    ensure     => running,
+    enable     => true,
+    hasstatus  => true,
     hasrestart => true,
   }
 }
