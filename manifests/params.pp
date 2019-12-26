@@ -75,6 +75,7 @@ class ssh::params {
   $permit_open = []
   $permit_tty = true
   $permit_user_environment = false
+  $pid_file = "/run/sshd.pid"
 
   case $::osfamily {
     'Debian': {
