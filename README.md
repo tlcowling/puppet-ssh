@@ -1,4 +1,4 @@
-# ssh [![Documentation](https://img.shields.io/badge/docs-green.svg)](https://tlcowling.github.io/puppet-ssh/)
+# ssh [![Documentation](https://img.shields.io/badge/docs-green.svg)](https://tlcowling.github.io/puppet-ssh/) [![Build status](https://ci.appveyor.com/api/projects/status/rwcioly3dv6nluy2?svg=true)](https://ci.appveyor.com/project/tlcowling/puppet-ssh)
 
 https://tlcowling.github.io/puppet-ssh/
 
