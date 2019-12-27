@@ -66,7 +66,7 @@
 #    is very different from TCPKeepAlive.  The client alive messages are sent through the encrypted channel and therefore will not be spoofable.  The TCP keepalive
 #    option enabled by TCPKeepAlive is spoofable.  The client alive mechanism is valuable when the client or server depend on knowing when a connection has become
 #    inactive.
-# @param client_alive_count_interval
+# @param client_alive_interval
 #   Sets a timeout interval in seconds after which if no data has been received from the client, sshd(8) will send a message through the encrypted channel to
 #   request a response from the client.  The default is 0, indicating that these messages will not be sent to the client.
 # @param compression
@@ -443,7 +443,7 @@ class ssh::config (
   Boolean $tcp_keepalive = $::ssh::params::tcp_keepalive,
   Boolean $compression = $::ssh::params::compression,
   Boolean $allow_stream_local_forwarding = $::ssh::params::allow_stream_local_forwarding,
-  Numeric $client_alive_count_interval = $::ssh::params::client_alive_count_interval,
+  Numeric $client_alive_interval = $::ssh::params::client_alive_interval,
   Numeric $client_alive_count_max = $::ssh::params::client_alive_count_max,
   String $chroot_directory = $::ssh::params::chroot_directory,
   Boolean $permit_tunnel = $::ssh::params::permit_tunnel,

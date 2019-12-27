@@ -1,6 +1,5 @@
-# ssh [![Documentation](https://img.shields.io/badge/docs-green.svg)](https://tlcowling.github.io/puppet-ssh/) [![Build status](https://ci.appveyor.com/api/projects/status/rwcioly3dv6nluy2?svg=true)](https://ci.appveyor.com/project/tlcowling/puppet-ssh)
+# ssh [![Documentation](https://img.shields.io/badge/documentation-brightgreen.svg)](https://tlcowling.github.io/puppet-ssh/) [![Build status](https://ci.appveyor.com/api/projects/status/rwcioly3dv6nluy2?svg=true)](https://ci.appveyor.com/project/tlcowling/puppet-ssh)
 
-https://tlcowling.github.io/puppet-ssh/
 
 1. [Description](#description)
 2. [Setup - The basics of getting started with ssh](#setup)

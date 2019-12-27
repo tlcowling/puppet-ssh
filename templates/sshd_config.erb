@@ -113,11 +113,13 @@ PermitRootLogin no
 <%- else -%>
 PermitRootLogin <%= @permit_root_login -%>
 <%- end -%>
+
 <%- if @client_alive_count_max -%>
 ClientAliveCountMax <%= @client_alive_count_max -%>
-<%- end %>
-<%- if @client_alive_count_interval -%>
-ClientAliveCountInterval <%= @client_alive_count_interval -%>
+<%- end -%>
+
+<%- if @client_alive_interval -%>
+ClientAliveInterval <%= @client_alive_interval -%>
 <%- end %>
 <%- if @permit_empty_passwords -%>
 PermitEmptyPasswords yes
@@ -180,6 +182,7 @@ PermitUserRC yes
 <%- else -%>
 PermitUserRC no
 <%- end -%>
+
 <%- if @x11_use_localhost -%>
 X11UseLocalhost yes
 <%- else -%>
@@ -190,39 +193,47 @@ PermitUserEnvironment yes
 <%- else -%>
 PermitUserEnvironment no
 <%- end -%>
+
 <%- if @accept_env.length > 0 -%>
 <%- @accept_env.each {|a| -%>
 AcceptEnv <%= a %>
 <%- } -%>
+
 <%- end -%>
 <%- if @deny_users.length > 0 -%>
 <%- @deny_users.each {|u| -%>
 DenyUsers <%= u %>
 <%- } -%>
 <%- end -%>
+
 <%- if @allow_users.length > 0 -%>
 <%- @allow_users.each {|u| -%>
 AllowUsers <%= u %>
 <%- } -%>
 <%- end -%>
+
 <%- if @deny_groups.length > 0 -%>
 <%- @deny_groups.each {|g| -%>
 DenyGroups <%= g %>
 <%- } -%>
 <%- end -%>
+
 <%- if @allow_groups.length > 0 -%>
 <%- @allow_groups.each {|g| -%>
 AllowGroups <%= g %>
 <%- } -%>
 <%- end -%>
+
 <%- if @fingerprint_hash -%>
 FingerprintHash <%= @fingerprint_hash -%>
 <%- end -%>
+
 <%- if @permit_open.length > 0 -%>
 <%- @permit_open.each {|po| -%>
 PermitOpen <%= po %>
 <%- } -%>
 <%- end -%>
+
 <%- if @ipqos -%>
 IPQoS <%= @ipqos.join(" ") %>
 <%- end -%>

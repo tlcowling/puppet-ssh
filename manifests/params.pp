@@ -39,7 +39,7 @@ class ssh::params {
   $print_motd = false
   $tcp_keepalive = true
   $compression = false
-  $client_alive_count_interval = 0
+  $client_alive_interval = 0
   $client_alive_count_max = 2
   $max_sessions = 2
   $fingerprint_hash = 'sha256'
