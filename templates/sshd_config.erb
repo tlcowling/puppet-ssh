@@ -7,21 +7,21 @@ Port <%= p %>
 <%- } -%>
 <%- end -%>
 <%- if @protocol -%>
-Protocol <%= @protocol -%>
-<%- end %>
+Protocol <%= @protocol %>
+<%- end -%>
 <%- if @address_family -%>
-AddressFamily <%= @address_family -%>
-<%- end %>
+AddressFamily <%= @address_family %>
+<%- end -%>
 <%- if @listen_addresses.length > 0 -%>
 <%- @listen_addresses.each {|listen_address| -%>
 ListenAddress <%= listen_address %>
 <%- } -%>
-<%- end %>
+<%- end -%>
 <%- if @host_keys.length > 0 -%>
 <%- @host_keys.each {|host_key| -%>
 HostKey <%= host_key %>
 <%- } -%>
-<%- end %>
+<%- end -%>
 <%- if @key_regeneration_interval -%>
 KeyRegenerationInterval <%= key_regeneration_interval %>
 <%- end -%>
@@ -61,8 +61,8 @@ AllowStreamLocalForwarding yes
 AllowStreamLocalForwarding no
 <%- end -%>
 <%- if @chroot_directory -%>
-ChrootDirectory <%= @chroot_directory -%>
-<%- end %>
+ChrootDirectory <%= @chroot_directory %>
+<%- end -%>
 <%- if @challenge_response_authentication -%>
 ChallengeResponseAuthentication yes
 <%- else -%>
@@ -78,8 +78,8 @@ Ciphers <%= @ciphers.join(",") %>
 KexAlgorithms <%= @kex_algorithms.join(",") %>
 Macs <%= @macs.join(",") %>
 <%- if @disable_forwarding -%>
-DisableForwarding <%= @disable_forwarding -%>
-<%- end %>
+DisableForwarding <%= @disable_forwarding %>
+<%- end -%>
 <%- if @gssapi_authentication -%>
 GSSAPIAuthentication yes
 <%- else -%>
@@ -104,22 +104,20 @@ IgnoreUserKnownHosts yes
 IgnoreUserKnownHosts no
 <%- end -%>
 <%- if @login_grace_time -%>
-LoginGraceTime <%= @login_grace_time -%>
-<%- end %>
+LoginGraceTime <%= @login_grace_time %>
+<%- end -%>
 <%- case @permit_root_login; when true, "on" -%>
 PermitRootLogin yes
 <%- when false, "no" -%>
 PermitRootLogin no
 <%- else -%>
-PermitRootLogin <%= @permit_root_login -%>
+PermitRootLogin <%= @permit_root_login %>
 <%- end -%>
-
 <%- if @client_alive_count_max -%>
-ClientAliveCountMax <%= @client_alive_count_max -%>
+ClientAliveCountMax <%= @client_alive_count_max %>
 <%- end -%>
-
 <%- if @client_alive_interval -%>
-ClientAliveInterval <%= @client_alive_interval -%>
+ClientAliveInterval <%= @client_alive_interval %>
 <%- end %>
 <%- if @permit_empty_passwords -%>
 PermitEmptyPasswords yes
@@ -135,11 +133,6 @@ PasswordAuthentication no
 PubKeyAuthentication yes
 <%- else -%>
 PubKeyAuthentication no
-<%- end -%>
-<%- if @rsa_authentication -%>
-RSAAuthentication yes
-<%- else -%>
-RSAAuthentication no
 <%- end -%>
 <%- if @permit_tty -%>
 PermitTTY yes
@@ -182,7 +175,6 @@ PermitUserRC yes
 <%- else -%>
 PermitUserRC no
 <%- end -%>
-
 <%- if @x11_use_localhost -%>
 X11UseLocalhost yes
 <%- else -%>
@@ -193,52 +185,44 @@ PermitUserEnvironment yes
 <%- else -%>
 PermitUserEnvironment no
 <%- end -%>
-
 <%- if @accept_env.length > 0 -%>
 <%- @accept_env.each {|a| -%>
 AcceptEnv <%= a %>
 <%- } -%>
-
 <%- end -%>
 <%- if @deny_users.length > 0 -%>
 <%- @deny_users.each {|u| -%>
 DenyUsers <%= u %>
 <%- } -%>
 <%- end -%>
-
 <%- if @allow_users.length > 0 -%>
 <%- @allow_users.each {|u| -%>
 AllowUsers <%= u %>
 <%- } -%>
 <%- end -%>
-
 <%- if @deny_groups.length > 0 -%>
 <%- @deny_groups.each {|g| -%>
 DenyGroups <%= g %>
 <%- } -%>
 <%- end -%>
-
 <%- if @allow_groups.length > 0 -%>
 <%- @allow_groups.each {|g| -%>
 AllowGroups <%= g %>
 <%- } -%>
 <%- end -%>
-
 <%- if @fingerprint_hash -%>
-FingerprintHash <%= @fingerprint_hash -%>
+FingerprintHash <%= @fingerprint_hash %>
 <%- end -%>
-
 <%- if @permit_open.length > 0 -%>
 <%- @permit_open.each {|po| -%>
 PermitOpen <%= po %>
 <%- } -%>
 <%- end -%>
-
 <%- if @ipqos -%>
 IPQoS <%= @ipqos.join(" ") %>
 <%- end -%>
 <%- if @host_based_accepted_key_types -%>
-HostBasedKeyTypes <%= @host_based_accepted_key_types.join(" ") %>
+HostBasedAcceptedKeyTypes <%= @host_based_accepted_key_types.join(",") %>
 <%- end -%>
 <%- if @host_certificates.length > 0 -%>
 <%- @host_certificates.each {|hc| -%>

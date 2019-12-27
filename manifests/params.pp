@@ -22,7 +22,6 @@ class ssh::params {
   $max_auth_tries = 3
   $print_last_log = true
   $pubkey_authentication = true
-  $rsa_authentication = true
   $password_authentication = false
   $permit_empty_passwords = false
   $challenge_response_authentication = true

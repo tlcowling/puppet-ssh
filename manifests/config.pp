@@ -422,7 +422,6 @@ class ssh::config (
   Variant[Boolean, Enum['yes','no','without-password']] $permit_root_login = $::ssh::params::permit_root_login,
   Boolean $strict_modes = $::ssh::params::strict_modes,
   Boolean $pubkey_authentication = $::ssh::params::pubkey_authentication,
-  Boolean $rsa_authentication = $::ssh::params::rsa_authentication,
   Array[String] $authorized_keys_file = $::ssh::params::authorized_keys_file,
   Boolean $password_authentication = $::ssh::params::password_authentication,
   Boolean $ignore_user_known_hosts = $::ssh::params::ignore_user_known_hosts,
