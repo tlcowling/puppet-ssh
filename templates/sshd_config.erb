@@ -72,7 +72,9 @@ ChallengeResponseAuthentication yes
 AuthorizedKeysFile <%= @authorized_keys_file.join(" ") %>
 <%- end -%>
 <%- if @compression -%>
-Compression <%= @compression -%>
+Compression yes
+<%- else -%>
+Compression no
 <%- end %>
 Ciphers <%= @ciphers.join(",") %>
 KexAlgorithms <%= @kex_algorithms.join(",") %>
@@ -154,6 +156,9 @@ MaxSessions <%= @max_sessions %>
 DisableForwarding yes
 <%- else -%>
 DisableForwarding no
+<%- end -%>
+<%- if @banner -%>
+Banner <%= @banner %>
 <%- end -%>
 <%- if @debian_banner -%>
 DebianBanner yes

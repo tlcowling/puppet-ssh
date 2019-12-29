@@ -10,7 +10,6 @@ class ssh::params {
   ]
   $host_keys = [
     '/etc/ssh/ssh_host_rsa_key',
-    '/etc/ssh/ssh_host_dsa_key',
     '/etc/ssh/ssh_host_ecdsa_key',
     '/etc/ssh/ssh_host_ed25519_key',
   ]
@@ -119,12 +118,6 @@ class ssh::params {
     'rsa-sha2-512',
     'rsa-sha2-256',
     'ssh-rsa',
-  ]
-  $host_key = [
-    '/etc/ssh/ssh_host_rsa_key',
-    '/etc/ssh/ssh_host_dsa_key',
-    '/etc/ssh/ssh_host_ecdsa_key',
-    '/etc/ssh/ssh_host_ed25519_key',
   ]
   $rekey_limit = [
     'default',
