@@ -531,7 +531,7 @@ class ssh::config (
 ) {
   file { '/etc/ssh/sshd_config':
     ensure  => present,
-    mode    => '0640',
+    mode    => '0600',
     owner   => 'root',
     group   => 'root',
     notify  => Exec['sshd config test'],
