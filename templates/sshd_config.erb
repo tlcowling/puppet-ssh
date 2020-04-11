@@ -1,6 +1,9 @@
+<%- if @comment.length > 0 -%>
+<%= @comment %>
+<%- else -%>
 # This file is being maintained by Puppet.
 # DO NOT EDIT
-
+<%- end -%>
 <%- if @port.length > 0 -%>
 <%- @port.each {|p| -%>
 Port <%= p %>

@@ -4,10 +4,7 @@ class ssh::params {
   $protocol = 2
   $port = [22]
   $address_family = 'any'
-  $listen_addresses = [
-    '127.0.0.1',
-    $::hostname,
-  ]
+  $listen_addresses = []
   $host_keys = [
     '/etc/ssh/ssh_host_rsa_key',
     '/etc/ssh/ssh_host_ecdsa_key',
