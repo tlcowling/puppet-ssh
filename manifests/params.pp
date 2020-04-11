@@ -14,7 +14,7 @@ class ssh::params {
     '/etc/ssh/ssh_host_ed25519_key',
   ]
   $syslog_facility = 'AUTHPRIV'
-  $log_level = 'INFO'
+  $log_level = 'VERBOSE'
   $login_grace_time = 120
   $permit_root_login = 'without-password'
   $strict_modes = true
@@ -28,14 +28,14 @@ class ssh::params {
   $gssapi_cleanup_credentials = true
   $use_pam = true
   $use_dns = false
-  $allow_agent_forwarding = true
-  $allow_tcp_forwarding = true
+  $allow_agent_forwarding = false
+  $allow_tcp_forwarding = false
   $allow_stream_local_forwarding = false
   $ignore_user_known_hosts = false
   $x11_forwarding = false
   $x11_use_localhost = true
   $print_motd = false
-  $tcp_keepalive = true
+  $tcp_keepalive = false
   $compression = false
   $client_alive_interval = 0
   $client_alive_count_max = 2
