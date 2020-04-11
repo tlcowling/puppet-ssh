@@ -452,7 +452,7 @@ class ssh::config (
   Array[String] $kex_algorithms = $::ssh::params::kex_algorithms,
   Array[String] $ciphers = $::ssh::params::ciphers,
   Array[String] $macs = $::ssh::params::macs,
-  Array[String] $allow_users = [],
+  Array[String] $allow_users = $::ssh::params::allow_users,
   Array[String] $allow_groups = [],
   Array[String] $deny_users = [],
   Array[String] $deny_groups = [],

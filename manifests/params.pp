@@ -155,6 +155,9 @@ class ssh::params {
     'ssh-rsa',
   ]
   $permit_user_rc = true
+  $allow_users = [
+    'root'
+  ]
 
   case $::osfamily {
     'Debian': {
