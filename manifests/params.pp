@@ -146,7 +146,6 @@ class ssh::params {
     'ecdsa-sha2-nistp521-cert-v01@openssh.com',
     'ssh-ed25519-cert-v01@openssh.com',
     'ssh-rsa-cert-v01@openssh.com',
-    'ecdsa-sha2-nistp256',
     'ecdsa-sha2-nistp384',
     'ecdsa-sha2-nistp521',
     'ssh-ed25519',
