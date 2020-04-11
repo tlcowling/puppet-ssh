@@ -410,7 +410,10 @@
 # @param host_based_authentication
 #   Specifies whether rhosts or /etc/hosts.equiv authentication together with successful public key client host authentication is allowed (host-based authentica‐
 #   tion).  The default is no.
+# @param config_comment
+#   A message to print at the top of the sshd_config
 class ssh::config (
+  String $config_comment = $::ssh::params::config_coment,
   Array[Numeric] $port = $::ssh::params::port,
   Numeric $protocol = $::ssh::params::protocol,
   Array[String] $host_keys = $::ssh::params::host_keys,

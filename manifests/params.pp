@@ -1,6 +1,7 @@
 # @summary This class is meant to be called from ssh.  It sets variables according to platform.
 #
 class ssh::params {
+  $config_comment = "# This file is being maintained by Puppet.  DO NOT EDIT MANUALLY"
   $protocol = 2
   $port = [22]
   $address_family = 'any'
