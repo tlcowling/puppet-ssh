@@ -16,7 +16,7 @@ Puppet module to configure OpenSSH servers and clients on Linux.
 
 ## Usage
 
-For usage and examples, see Wiki
+For usage and examples, see [Wiki](https://github.com/tlcowling/puppet-ssh/wiki)
 
 ## Development
 
