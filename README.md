@@ -13,10 +13,23 @@ hardened ssh configuration.
 
 ## Usage
 
+### Configure entirely with Hiera
+```puppet
+# site.pp
+include ssh
+```
+
+```yaml
+# common.yaml
+---
+ssh::config::compression: true
+```
+
+### More
 For usage and examples, see [Wiki](https://github.com/tlcowling/puppet-ssh/wiki)
 
 ## Development
 
 - Use `rake` to run the test suite, see the build in appveyor.
 - Create issues and/or PRs in github
-- Any and all questions welcome.
+- Any and all questions welcome - if it doesn't work for you, it's a bug!
