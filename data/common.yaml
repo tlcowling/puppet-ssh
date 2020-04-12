@@ -1,1 +1,2 @@
 ---
+ssh::config::config_comment: "Managed by Puppet, DO NOT EDIT"
